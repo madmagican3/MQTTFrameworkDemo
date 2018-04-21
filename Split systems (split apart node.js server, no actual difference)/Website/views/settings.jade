@@ -1,0 +1,35 @@
+extends layout
+
+block content
+    if(modified)
+        p That index has been modified
+    if (deleted)
+        p The specified control has been deleted
+    if(mainControl)
+        form(name="TempControl", method="post")
+            div.input
+                span.label Temp
+                    input(type="text", name="temp", value="#{mainControl.temp}")
+                    div
+                span.label Time
+                    input(type="text", name = "time", value ="#{mainControl.time}")
+                    div
+                div.actions
+                    input(type="submit", value="Modify setting")
+    else
+        form(name="TempControl", method="post")
+            div.input
+                span.label Temp
+                    input(type="text", name="temp")
+                    div
+                span.label Time
+                    input(type="text", name = "time")
+                    div
+                div.actions
+                    input(type="submit", value="Create new setting")
+    ul
+        if(controls)
+            for control in controls
+                li Temp : #{control.temp}   Time : #{control.time} #[a(href="/settings/delete/#{control.index}") Delete]  #[a(href="/settings/update/#{control.index}") Update]
+
+    a(href="/", class="button") Change temperature
